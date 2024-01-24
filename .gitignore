@@ -1,11 +1,6 @@
-
-
-
-
-
 .env
 
-mongo/
+mongo-db/
 postgres/
 node_modules/
 dist/
