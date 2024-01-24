@@ -7,9 +7,7 @@ interface Options {
   public_path?: string;
 }
 
-
 export class Server {
-
   public readonly app = express();
   private serverListener?: any;
   private readonly port: number;
@@ -22,12 +20,8 @@ export class Server {
     this.publicPath = public_path;
     this.routes = routes;
   }
-
-  
   
   async start() {
-    
-
     //* Middlewares
     this.app.use( express.json() ); // raw
     this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
@@ -44,15 +38,12 @@ export class Server {
       res.sendFile(indexPath);
     });
     
-
     this.serverListener = this.app.listen(this.port, () => {
       console.log(`Server running on port ${ this.port }`);
     });
-
   }
 
   public close() {
     this.serverListener?.close();
   }
-
 }
