@@ -1,6 +1,11 @@
 import { bcryptAdapter } from "../../config"
 import { UserModel } from "../../data"
-import { CustomError, RegisterUserDto, UserEntity } from "../../domain"
+import {
+  CustomError,
+  RegisterUserDto,
+  LoginUserDto,
+  UserEntity,
+} from "../../domain"
 
 export class AuthService {
   // DI
@@ -26,6 +31,28 @@ export class AuthService {
 
       return {
         user: userEntity,
+        token: "ABC",
+      }
+    } catch (e) {
+      throw CustomError.internalServerError(`${e}`)
+    }
+  }
+
+  public async loginUser(loginUserDto: LoginUserDto) {
+    const user = await UserModel.findOne({ email: loginUserDto.email })
+    if (!user) throw CustomError.notFound("User not found")
+
+    try {
+      const isMatching = bcryptAdapter.compare(
+        loginUserDto.password,
+        user.password
+      )
+      if (!isMatching) throw CustomError.badRequest("Incorrect password")
+
+      const { password, ...userEntity } = UserEntity.fromObject(user)
+
+      return {
+        ...userEntity,
         token: "ABC",
       }
     } catch (e) {
