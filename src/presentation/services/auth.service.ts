@@ -1,4 +1,4 @@
-import { bcryptAdapter } from "../../config"
+import { JwtAdapter, bcryptAdapter } from "../../config"
 import { UserModel } from "../../data"
 import {
   CustomError,
@@ -51,9 +51,13 @@ export class AuthService {
 
       const { password, ...userEntity } = UserEntity.fromObject(user)
 
+      const token = await JwtAdapter.generateToken({ id: user.id })
+      if (!token)
+        throw CustomError.internalServerError("Error while creating JWT")
+
       return {
         ...userEntity,
-        token: "ABC",
+        token,
       }
     } catch (e) {
       throw CustomError.internalServerError(`${e}`)
