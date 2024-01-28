@@ -11,6 +11,7 @@ export class AuthRoutes {
       email: envs.MAILER_EMAIL,
       secretKey: envs.MAILER_SECRET_KEY,
       service: envs.MAILER_SERVICE,
+      postToProvider: envs.SEND_EMAIL
     })
     const authService = new AuthService(emailService)
 

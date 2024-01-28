@@ -4,6 +4,7 @@ interface Props {
   service: string
   email: string
   secretKey: string
+  postToProvider: boolean
 }
 
 export interface SendMailOptions {
@@ -20,8 +21,9 @@ export interface Attachement {
 
 export class EmailService {
   private transporter: Transporter
+  private postToProvider!: boolean
 
-  constructor({ email, secretKey, service }: Props) {
+  constructor({ email, secretKey, service, postToProvider }: Props) {
     this.transporter = nodemailer.createTransport({
       service,
       auth: {
@@ -29,12 +31,14 @@ export class EmailService {
         pass: secretKey,
       },
     })
+    this.postToProvider = postToProvider
   }
 
   async sendEmail(options: SendMailOptions): Promise<boolean> {
     const { to, subject, htmlBody, attachements = [] } = options
 
     try {
+      if (!this.postToProvider) return true
       const sentInformation = await this.transporter.sendMail({
         to: to,
         subject: subject,
