@@ -19,16 +19,16 @@ export class JwtAdapter {
     return promise
   }
 
-  static validateToken(token: string) {
-    let resolve: (value: unknown) => void
+  static validateToken<T>(token: string): Promise<T | null> {
+    let resolve: (value: T | null) => void
 
-    const promise = new Promise((res) => {
+    const promise = new Promise<T | null>((res) => {
       resolve = res
     })
 
     jwt.verify(token, JWT_SEED, (err, decoded) => {
       if (err) return resolve(null)
-      resolve(decoded)
+      resolve(decoded as T)
     })
 
     return promise
