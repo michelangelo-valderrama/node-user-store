@@ -22,15 +22,13 @@ export class AuthMiddleware {
       if (!user) return res.status(401).json({ error: "Invalid token - user" })
 
       // TODO: Validar si el usuario está activo
-      
-      req.body.user = UserEntity.fromObject(user)
 
-      next()
+      req.body.user = UserEntity.fromObject(user)
+      
+      return next()
     } catch (error) {
       console.log(error)
-      res.status(500).json({ error: "Internal server error" })
+      return res.status(500).json({ error: "Internal server error" })
     }
-
-    return next()
   }
 }

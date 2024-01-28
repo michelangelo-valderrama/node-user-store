@@ -17,10 +17,13 @@ export class CategoryController {
     res.json("Get categories")
   }
 
-  createCategory = async (req: Request, res: Response) => {
+  createCategory = (req: Request, res: Response) => {
     const [error, createCategoryDto] = CreateCategoryDto.create(req.body)
     if (error) return res.status(400).json({ error })
 
-    res.json(createCategoryDto)
+    this.categoryService
+      .createCategory(createCategoryDto!, req.body.user)
+      .then((category) => res.status(201).json(category))
+      .catch((e) => this.handleError(e, res))
   }
 }
