@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { CustomError, PaginationDto } from "../../domain"
+import { CreateProductDto, CustomError, PaginationDto } from "../../domain"
 import { ProductService } from "../services/product.service"
 
 export class ProductController {
@@ -18,14 +18,22 @@ export class ProductController {
     const [error, paginationDto] = PaginationDto.create(+page, +limit)
     if (error) return res.status(400).json({ error })
 
-    res.status(200).json({ message: "OK" })
-    // this.productService
-    //   .getProducts(paginationDto!)
-    //   .then((categories) => res.status(200).json(categories))
-    //   .catch((e) => this.handleError(e, res))
+    this.productService
+      .getProducts(paginationDto!)
+      .then((products) => res.status(200).json(products))
+      .catch((e) => this.handleError(e, res))
   }
 
   createProducts = async (req: Request, res: Response) => {
-    res.status(200).json({ message: "create product" })
+    const [error, createProductDto] = CreateProductDto.create({
+      ...req.body,
+      user: req.body.user.id,
+    })
+    if (error) return res.status(400).json({ error })
+
+    this.productService
+      .createProduct(createProductDto!)
+      .then((product) => res.status(201).json(product))
+      .catch((e) => this.handleError(e, res))
   }
 }
