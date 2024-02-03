@@ -3,7 +3,7 @@ import { CreateCategoryDto, CustomError, PaginationDto } from "../../domain"
 import { CategoryService } from "../services/category.service"
 
 export class CategoryController {
-  constructor(public categoryService: CategoryService) {}
+  constructor(private readonly categoryService: CategoryService) {}
 
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError) {
