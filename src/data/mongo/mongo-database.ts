@@ -15,4 +15,8 @@ export class MongoDatabase {
       throw e
     }
   }
+
+  static async disconnect() {
+    await mongoose.disconnect()
+  }
 }
