@@ -4,8 +4,8 @@
 
 1. Clonar `.env.template` en `.env`
 2. Levantar base de datos `npm run db:start`
-2. Llenar base de datos `npm run seed`
-3. `npm run dev`
+3. Llenar base de datos `npm run seed`
+4. `npm run dev`
 
 ## Documentación
 
@@ -89,6 +89,8 @@ curl --location 'http://localhost:3000/api/auth/validate-email/:token'
 "Email validated"
 ```
 
+---
+
 ### Categorías
 
 #### `GET` Obtener las categorías
@@ -149,6 +151,8 @@ curl --location 'http://localhost:3000/api/category' \
 }
 ```
 
+---
+
 ### Productos
 
 #### `GET` Obtener productos
@@ -164,59 +168,55 @@ curl --location 'http://localhost:3000/api/product?limit=2'
 
 #### Respuesta
 
-````json
+```json
 {
-    "page": 1,
-    "limit": 2,
-    "total": 22,
-    "next": "/api/product?page=2&limit=2",
-    "prev": null,
-    "products": [
-        {
-            "name": "Than",
-            "available": true,
-            "price": 75.0369,
-            "user": {
-                "name": "Test 2",
-                "email": "test2@google.com",
-                "emailValidated": false,
-                "role": [
-                    "USER_ROLE"
-                ],
-                "id": "65be113dc014b4a5f4a20f23"
-            },
-            "category": {
-                "name": "split",
-                "available": false,
-                "user": "65be113dc014b4a5f4a20f22",
-                "id": "65be113ec014b4a5f4a20f39"
-            },
-            "id": "65be113ec014b4a5f4a20f40"
-        },
-        {
-            "name": "Wagon",
-            "available": true,
-            "price": 1.9631,
-            "user": {
-                "name": "Test 5",
-                "email": "test5@google.com",
-                "emailValidated": false,
-                "role": [
-                    "USER_ROLE"
-                ],
-                "id": "65be113dc014b4a5f4a20f26"
-            },
-            "category": {
-                "name": "Driven",
-                "available": false,
-                "user": "65be113dc014b4a5f4a20f22",
-                "id": "65be113ec014b4a5f4a20f29"
-            },
-            "id": "65be113ec014b4a5f4a20f41"
-        }
-    ]
-}```
-````
+  "page": 1,
+  "limit": 2,
+  "total": 22,
+  "next": "/api/product?page=2&limit=2",
+  "prev": null,
+  "products": [
+    {
+      "name": "Than",
+      "available": true,
+      "price": 75.0369,
+      "user": {
+        "name": "Test 2",
+        "email": "test2@google.com",
+        "emailValidated": false,
+        "role": ["USER_ROLE"],
+        "id": "65be113dc014b4a5f4a20f23"
+      },
+      "category": {
+        "name": "split",
+        "available": false,
+        "user": "65be113dc014b4a5f4a20f22",
+        "id": "65be113ec014b4a5f4a20f39"
+      },
+      "id": "65be113ec014b4a5f4a20f40"
+    },
+    {
+      "name": "Wagon",
+      "available": true,
+      "price": 1.9631,
+      "user": {
+        "name": "Test 5",
+        "email": "test5@google.com",
+        "emailValidated": false,
+        "role": ["USER_ROLE"],
+        "id": "65be113dc014b4a5f4a20f26"
+      },
+      "category": {
+        "name": "Driven",
+        "available": false,
+        "user": "65be113dc014b4a5f4a20f22",
+        "id": "65be113ec014b4a5f4a20f29"
+      },
+      "id": "65be113ec014b4a5f4a20f41"
+    }
+  ]
+}
+```
 
 #### `POST` Crear un nuevo producto
 
@@ -247,6 +247,8 @@ curl --location 'http://localhost:3000/api/product' \
   "id": "65bf9bf0184b7cd470bebb66"
 }
 ```
+
+---
 
 ### Subir archivos
 
@@ -303,6 +305,8 @@ curl --location 'http://localhost:3000/api/upload/multiple/products' \
   }
 ]
 ```
+
+---
 
 ### Imágenes
 
