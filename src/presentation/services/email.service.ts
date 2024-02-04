@@ -45,7 +45,6 @@ export class EmailService {
         html: htmlBody,
         attachments: attachements,
       })
-      console.log(sentInformation)
       return true
     } catch (error) {
       return false
